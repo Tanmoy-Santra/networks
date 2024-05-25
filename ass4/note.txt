@@ -1,0 +1,49 @@
+client
+------
+
+both ip's  and port's
+---------------------
+   client_port 5001 
+   client_port "127.0.0.1"
+   servr_port 5000
+   server_ip "192.168.5.36"
+
+   struct sockaddr_in client,server 
+   ---(common line for both client and server)
+
+   int sd 
+   ---(only sd is requared)
+
+   char str[512];
+
+   bzero((char*)&client,sizeof(client))
+
+   client.family=AF_INET
+   client.sin_port=htons(CLIENT_PORT)
+   client.sin_addr.s_addr=inet_addr(CLIENT_PORT)
+
+   ---as well as server 
+
+   methode use in client
+   --------------------
+   sd=socket(AF_INET,SOCK_STREAM,0)
+   connect(sd, (struct sockaddr*)&server, sizeof(server))
+   --outside the loop
+
+    send(sd, str, strlen(str)+1, 0);
+
+ methode use in server
+ --------------------
+   --------------------
+  sd=socket(AF_INET,SOCK_STREAM,0)
+  bind(sd, (struct sockaddr*)&server, sizeof(server))
+  listen(str,5);
+  nsd=accept(sd, (struct sockaddr*)&client, &clen)
+   memset(str, 0x0, 512);
+   recv(nsd, str, 512, 0);
+   
+
+
+
+
+
