@@ -1,4 +1,4 @@
-//client7
+//client8
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -10,10 +10,12 @@
 #define SERVER_IP "192.168.5.17"
 #define CLIENT_PORT 5501
 #define CLIENT_IP "127.0.0.1"
+
 int main(){
-         struct sockaddr_in client,server;
-        char str1[512],str[512];
+        struct sockaddr_in client,server;
+        char str[512],str1[512];
         int sd,slen=sizeof(server);
+        char *ptr;
         bzero((char*)&client,sizeof(client));
         client.sin_family=AF_INET;
         client.sin_port=htons(CLIENT_PORT);
@@ -27,13 +29,12 @@ int main(){
         connect(sd,(struct sockaddr*)&client,sizeof(client));
 
         do{
-                printf("\nenter  the msg :");
+                printf("\nenter the msg :");
                 scanf("%s",str);
                 sendto(sd,str,strlen(str)+1,0,(struct sockaddr*)&server,sizeof(server));
                 memset(str1,0x0,512);
                 recvfrom(sd,str1,512,0,(struct sockaddr*)&server,&slen);
-                printf("msg received from server : %s",str1);
-        }while(strcmp(str,"stop"));
+                printf("\nreceived msg : %s",str1);
+        }while(strcmp(str1,"stop"));
         close(sd);
-
 }
