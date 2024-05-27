@@ -1,0 +1,59 @@
+pipe
+----
+pipe is a interpoces communiation . occur in half duplex mode . 2 end communication ,one end write and another write not a same time. each occur at a time .
+
+fd (file descripter value)
+--------------------------
+fd[1]-->write fd[0]-->read 
+
+What is fd in file handling?
+
+In Unix and Unix-like computer operating systems, a file descriptor (FD, less frequently fildes) is a process-unique identifier (handle) for a file or other input/output resource, such as a pipe or network socket.
+
+Common File Descriptor Values:
+
+0: Standard input (stdin).
+1: Standard output (stdout).
+2: Standard error (stderr)
+
+process 
+-------------
+A process is an instance of a running program. It is the execution context within which a program runs, including its code, data, resources, and state. Here are the key aspects and components of a process:
+
+
+======================================================================================================
+
+sys/socket.h, sys/types.h: For socket-related functions and data types.
+netinet/in.h: For sockaddr_in structure and constants.
+arpa/inet.h: For functions to manipulate IP addresses.
+
+sockaddr_in client, server: Structures to hold client and server address information.
+
+bzero Function
+---------------
+The bzero function is used to set a block of memory to zero. It is defined in the <strings.h> header, and its prototype is:
+void bzero(void *s, size_t n);
+s: Pointer to the memory block to be filled with zeros.
+n: Number of bytes to set to zero.
+
+bzero((char*)&client, sizeof(client)): Zeroes out the client structure.
+client.sin_family = AF_INET: Specifies the address family (IPv4).
+client.sin_addr.s_addr = inet_addr(CLIENT_IP): Sets the client IP address.
+client.sin_port = htons(CLIENT_PORT): Sets the client port number (converted to network byte order).
+---------------------------------------------------------------------------------------------------
+socket
+-------
+A socket is one endpoint of a two way communication link between two programs running on the network. The socket mechanism provides a means of inter-process communication (IPC) by establishing named contact points between which the communication take place. 
+
+Like ‘Pipe’ is used to create pipes and sockets is created using ‘socket’ system call. The socket provides bidirectional FIFO Communication facility over the network. 
+
+
+onnect(sd, (struct sockaddr*)&server, sizeof(server));
+connect Function:
+
+The connect function establishes a connection to a specified server using the socket file descriptor returned by socket.
+Parameters:
+
+sd: The socket file descriptor created by the socket function.
+(struct sockaddr*)&server: A pointer to a sockaddr structure (cast to struct sockaddr*) that contains the server's address and port information. In this case, server is a sockaddr_in structure that specifies the IPv4 address and port of the server.
+sizeof(server): The size of the server structure, which is passed to inform the connect function of the length of the address structure.

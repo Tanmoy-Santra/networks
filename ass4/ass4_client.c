@@ -1,4 +1,4 @@
-/client4
+//client4
 #include <stdio.h>
 #include <string.h>
 #include <sys/socket.h>
@@ -10,7 +10,7 @@
 #define CLIENT_IP "127.0.0.1"
 #define CLIENT_PORT 5751
 int main() {
-    struct sockaddr_in client, server; // Corrected struct name
+    struct sockaddr_in client, server; 
     int sd;
     char str[512];
 
