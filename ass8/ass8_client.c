@@ -6,9 +6,9 @@
 #include<sys/socket.h>
 #include<arpa/inet.h>
 #include<netinet/in.h>
-#define SERVER_PORT 5500
-#define SERVER_IP "192.168.5.17"
-#define CLIENT_PORT 5501
+#define SERVER_PORT 5000
+#define SERVER_IP "127.0.0.1"
+#define CLIENT_PORT 5001
 #define CLIENT_IP "127.0.0.1"
 
 int main(){
@@ -24,10 +24,9 @@ int main(){
         server.sin_family=AF_INET;
         server.sin_port=htons(SERVER_PORT);
         server.sin_addr.s_addr=inet_addr(SERVER_IP);
-
         sd=socket(AF_INET,SOCK_DGRAM,0);
-        connect(sd,(struct sockaddr*)&client,sizeof(client));
-
+        bind(sd,(struct sockaddr*)&client,sizeof(client));
+        connect(sd,(struct sockaddr*)&server,sizeof(server));
         do{
                 printf("\nenter the msg :");
                 scanf("%s",str);
@@ -35,6 +34,5 @@ int main(){
                 memset(str1,0x0,512);
                 recvfrom(sd,str1,512,0,(struct sockaddr*)&server,&slen);
                 printf("\nreceived msg : %s",str1);
-        }while(strcmp(str1,"stop"));
-        close(sd);
-}
+        }while(strcmp(str,"stop"));
+        close(sd);}

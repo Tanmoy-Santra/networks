@@ -1,4 +1,5 @@
 //client7
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -6,9 +7,9 @@
 #include<sys/socket.h>
 #include<arpa/inet.h>
 #include<netinet/in.h>
-#define SERVER_PORT 5500
-#define SERVER_IP "192.168.5.17"
-#define CLIENT_PORT 5501
+#define SERVER_PORT 5000
+#define SERVER_IP "127.0.0.1"
+#define CLIENT_PORT 5001
 #define CLIENT_IP "127.0.0.1"
 int main(){
          struct sockaddr_in client,server;
@@ -24,7 +25,8 @@ int main(){
         server.sin_addr.s_addr=inet_addr(SERVER_IP);
 
         sd=socket(AF_INET,SOCK_DGRAM,0);
-        connect(sd,(struct sockaddr*)&client,sizeof(client));
+        bind(sd,(struct sockaddr*)&client,sizeof(client));
+        connect(sd,(struct sockaddr*)&server,sizeof(server));
 
         do{
                 printf("\nenter  the msg :");

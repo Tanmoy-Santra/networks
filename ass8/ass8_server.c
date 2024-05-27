@@ -1,15 +1,15 @@
 //server8
 
-include<stdio.h>
+#include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
 #include<sys/types.h>
 #include<sys/socket.h>
 #include<arpa/inet.h>
 #include<netinet/in.h>
-#define SERVER_PORT 5500
-#define SERVER_IP "192.168.5.17"
-#define CLIENT_PORT 5501
+#define SERVER_PORT 5000
+#define SERVER_IP "127.0.0.1"
+#define CLIENT_PORT 5001
 #define CLIENT_IP "127.0.0.1"
 #include<time.h>
 int main(){
@@ -28,14 +28,11 @@ int main(){
         while(1){
                 do{     memset(str,0x0,512);
                         recvfrom(sd,str,512,0,(struct sockaddr*)&client,&clen);
-                        if(str=="time"){
+                        if(strcmp(str,"time")==0){
                                 ti=time(NULL);
                                 ptr=ctime(&ti);
                                 sendto(sd,ptr,strlen(ptr)+1,0,(struct sockaddr*)&client,sizeof(client));
                         }
                         else{sendto(sd,str1,strlen(str1)+1,0,(struct sockaddr*)&client,sizeof(client));}
                 }while(strcmp(str,"stop"));
-                close(sd);
-
-        }
-}
+                close(sd);      }}
