@@ -1,0 +1,7 @@
+any text here
+
+commands
+--------
+touch a.txt 
+cat > a.txt 
+cat a.txt 
