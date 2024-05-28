@@ -25,6 +25,7 @@ int main() {
     server.sin_port = htons(SERVER_PORT);
 
     sd = socket(AF_INET, SOCK_STREAM, 0);
+    bind(sd, (struct sockaddr*)&client, sizeof(client));
     connect(sd, (struct sockaddr*)&server, sizeof(server));
 
     do {
