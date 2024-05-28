@@ -23,6 +23,6 @@ int main(){
     }
     else{
         close(fd2[0])       ;
-        write(fd2[0],s1,n);
+        write(fd2[1],s1,n);
     }
 }

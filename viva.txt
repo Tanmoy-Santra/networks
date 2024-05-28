@@ -29,8 +29,15 @@ arpa/inet.h: For functions to manipulate IP addresses.
 
 sockaddr_in client, server: Structures to hold client and server address information.
 
+tcp UDP
+=======
+TCP (Transmission Control Protocol) is connection-oriented and reliable, ensuring ordered and error-checked data delivery, while UDP (User Datagram Protocol) is connectionless and faster, but does not guarantee delivery, order, or error-checking.
+
 bzero Function
 ---------------
+
+ bzero((char*)&server, sizeof(server));
+
 The bzero function is used to set a block of memory to zero. It is defined in the <strings.h> header, and its prototype is:
 void bzero(void *s, size_t n);
 s: Pointer to the memory block to be filled with zeros.
@@ -48,7 +55,9 @@ A socket is one endpoint of a two way communication link between two programs ru
 Like ‘Pipe’ is used to create pipes and sockets is created using ‘socket’ system call. The socket provides bidirectional FIFO Communication facility over the network. 
 
 
-onnect(sd, (struct sockaddr*)&server, sizeof(server));
+connect
+-------
+connect(sd, (struct sockaddr*)&server, sizeof(server));
 connect Function:
 
 The connect function establishes a connection to a specified server using the socket file descriptor returned by socket.
@@ -57,3 +66,76 @@ Parameters:
 sd: The socket file descriptor created by the socket function.
 (struct sockaddr*)&server: A pointer to a sockaddr structure (cast to struct sockaddr*) that contains the server's address and port information. In this case, server is a sockaddr_in structure that specifies the IPv4 address and port of the server.
 sizeof(server): The size of the server structure, which is passed to inform the connect function of the length of the address structure.
+
+The memset
+----------
+ function is used to set a block of memory to a specified value. It is part of the C standard library and is declared in the <string.h> header file. Here's a detailed explanation:
+
+memset Function
+Prototype
+void *memset(void *s, int c, size_t n);
+Parameters
+s: A pointer to the memory block to be set.
+c: The value to be set. This is passed as an int, but it is internally converted to an unsigned char and set to each byte of the memory block.
+n: The number of bytes to be set to the value
+
+recv
+----
+In networking, the function call recv(nsd, str, 512, 0) is used in socket programming to receive data from a network socket.
+
+sockfd: Socket file descriptor.
+buf: Buffer to receive the data.
+len: Length of the buffer.
+flags: Flags to modify the behavior of the function.
+
+send
+----
+send(sd, str, strlen(str)+1, 0);
+
+sockfd: Socket file descriptor.
+buf: Buffer containing the data to be sent.
+len: Length of the data in the buffer.
+flags: Flags to modify the behavior of the function.
+
+strlen(str)+1 => strlen(str) calculates the length of the string str without including the null terminator.
+Adding +1 to strlen(str) ensures that the null terminator is included in the data being sent.
+-------------
+
+sendto
+------
+sendto(sd,str,strlen(str)+1,0,(struct sockaddr*)&server,sizeof(server));
+
+sockfd: Socket file descriptor.
+buf: Buffer containing the data to be sent.
+len: Length of the data in the buffer.
+flags: Flags to modify the behavior of the function.
+dest_addr: Pointer to a struct sockaddr containing the destination address.
+addrlen: Size of the address structure.
+
+
+recvfrom
+--------
+recvfrom(sd,str,512,0,(struct sockaddr*)&client,&clen);
+
+sockfd: Socket file descriptor.
+buf: Buffer to receive the data.
+len: Length of the buffer.
+flags: Flags to modify the behavior of the function.
+src_addr: Pointer to a struct sockaddr that will be filled with the sender's address.
+addrlen: Pointer to a variable containing the size of the src_addr structure. This variable is updated with the actual size of the sender's address.
+
+
+inet_ntoa()
+-----------
+The function inet_ntoa() converts a network address in a struct in_addr to a dots-and-numbers format string
+
+inet_aton()
+----------
+The function inet_aton() is the opposite, converting from a dots-and-numbers string into a in_addr_t (which is the type of the field s_addr in your struct in_addr.)
+
+inet_addr()
+-----------
+ the function inet_addr() is an older function that does basically the same thing as inet_aton(). 
+
+ htons() ---translates an unsigned short integer into network byte order.
+ ntohs()--- translates an unsigned short integer into host byte order.
