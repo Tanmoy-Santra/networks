@@ -53,7 +53,11 @@ socket
 A socket is one endpoint of a two way communication link between two programs running on the network. The socket mechanism provides a means of inter-process communication (IPC) by establishing named contact points between which the communication take place. 
 
 Like ‘Pipe’ is used to create pipes and sockets is created using ‘socket’ system call. The socket provides bidirectional FIFO Communication facility over the network. 
+he function call socket(AF_INET, SOCK_STREAM, 0); creates a new socket with the following parameters:
 
+AF_INET: Specifies the address family for the socket. AF_INET indicates that the socket will use the IPv4 protocol.
+SOCK_STREAM: Specifies the type of socket. SOCK_STREAM indicates that the socket will be a stream socket, typically used for TCP (Transmission Control Protocol) communication.
+0: Specifies the protocol to be used with the socket. 0 indicates that the default protocol for the given socket type will be used, which is TCP for SOCK_STREAM.
 
 connect
 -------
